@@ -36,32 +36,35 @@ create table stage (
     pt_id int not null, -- Associated product type
     foreign key (pt_id) references product_type(pt_id) -- Foreign key to product_type table
 );
-    
+
+-- Table for different types of checks or tests performed
 create table check_type (
-	ct_id int primary key auto_increment,
-    ct_name text not null,
-    ct_desc text not null,
-    stage_id int not null,
-    percent_check float not null,
-    lower_bound float not null,
-    upper_bound float not null,
-    foreign key (stage_id) references stage(stage_id)
+	ct_id int primary key auto_increment, -- Unique identifier for each check
+    ct_name text not null, -- Name of the check
+    ct_desc text not null, -- Description of the check
+    stage_id int not null, -- Associated production stage
+    percent_check float not null, -- Percentage of items to be checked
+    lower_bound float not null, -- Lower bound for check value
+    upper_bound float not null, -- Upper bound for check value
+    foreign key (stage_id) references stage(stage_id) -- Foreign key to stage table
 );
 
+-- Table for batches of products
 create table batch (
-	batch_id int primary key auto_increment,
-    pt_id int not null,
-    stage_id int not null,
-    creation_date datetime default CURRENT_TIMESTAMP not null,
-    batch_status enum('in-process', 'accepted', 'rejected') not null,
-    foreign key (pt_id) references product_type(pt_id),
-    foreign key (stage_id) references stage(stage_id)
-    );
+	batch_id int primary key auto_increment, -- Unique identifier for each batch
+    pt_id int not null, -- Associated product type
+    stage_id int not null, -- Current production stage
+    creation_date datetime default CURRENT_TIMESTAMP not null, -- Creation date of the batch
+    batch_status enum('in-process', 'accepted', 'rejected') not null, -- Status of the batch
+    foreign key (pt_id) references product_type(pt_id), -- Foreign key to product_type table
+    foreign key (stage_id) references stage(stage_id) -- Foreign key to stage table
+);
 
+-- Table for individual items in a batch
 create table item (
-	serial_number int primary key auto_increment,
-    batch_id int not null,
-    foreign key (batch_id) references batch(batch_id)
+	serial_number int primary key auto_increment, -- Unique identifier for each item
+    batch_id int not null, -- Associated batch
+    foreign key (batch_id) references batch(batch_id) -- Foreign key to batch table
 ); 
 
 -- Table for recording checks or tests performed
@@ -74,8 +77,8 @@ create table chck (
     entry_date datetime default CURRENT_TIMESTAMP not null, -- Date of entry
     modified_date datetime on update CURRENT_TIMESTAMP not null, -- Date of last modification
     foreign key (ct_id) references check_type(ct_id), -- Foreign key to check_type table
-    foreign key (usr_id) references usr(usr_id),
-    foreign key (batch_id) references batch(batch_id)
+    foreign key (usr_id) references usr(usr_id), -- Foreign key to usr table
+    foreign key (batch_id) references batch(batch_id) -- Foreign key to batch table
 );
 
 -- Insert statements to populate product_type table
