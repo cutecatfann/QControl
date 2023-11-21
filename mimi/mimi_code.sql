@@ -56,3 +56,60 @@ CALL p_RecordQualityCheck(
 );
 
 SELECT * FROM chck ORDER BY chck_id DESC LIMIT 1; 
+
+-- Function: For each product type: see the ratio of pass fail
+CREATE FUNCTION get_quality_check_ratio()
+RETURNS TEXT
+DETERMINISTIC
+BEGIN
+    DECLARE result TEXT DEFAULT '';
+    DECLARE done INT DEFAULT FALSE;
+    DECLARE cur_pt_id INT;
+    DECLARE cur_pt_name TEXT;
+    DECLARE cur_ratio TEXT;
+    DECLARE cur CURSOR FOR 
+        SELECT pt.pt_id, pt.pt_name
+        FROM product_type pt;
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
+
+    OPEN cur;
+
+    read_loop: LOOP
+        FETCH cur INTO cur_pt_id, cur_pt_name;
+        IF done THEN
+            LEAVE read_loop;
+        END IF;
+
+        SELECT CONCAT(
+                'Product Type: ', cur_pt_name, ', Pass/Fail Ratio: ',
+                IFNULL(SUM(CASE WHEN b.batch_status = 'accepted' THEN 1 ELSE 0 END), 0) / 
+                GREATEST(IFNULL(SUM(CASE WHEN b.batch_status = 'rejected' THEN 1 ELSE 0 END), 1), 1)
+            ) INTO cur_ratio
+        FROM batch b
+        WHERE b.pt_id = cur_pt_id
+        GROUP BY b.pt_id;
+
+        SET result = CONCAT(result, cur_ratio, '\n');
+    END LOOP;
+
+    CLOSE cur;
+
+    RETURN result;
+END
+
+-- Tigger:  t_NewUserTest
+-- Description: When new users are added to the database, this trigger verifies that their data has the correct formatting and length. It will check for Role selection (is it a valid role), and proper email regex. If there is an incorrect value it will reject the entry.
+CREATE TRIGGER validate_new_user
+BEFORE INSERT ON usr
+FOR EACH ROW
+BEGIN
+    -- Check if role is valid
+    IF NEW.usr_role NOT IN ('q_manager', 'q_lead', 'q_tech') THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Invalid role selected';
+    END IF;
+
+    -- Check email format (basic regex for email validation)
+    IF NOT NEW.user_email REGEXP '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}$' THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Invalid email format';
+    END IF;
+END

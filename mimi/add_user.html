@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add New User</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <p><strong>Please enter the following information for the new user:</strong></p>
+    <form action="insert_user.php" method="POST">
+        User Name: <input type="text" name="usr_name" required><br><br>
+        User Email: <input type="email" name="user_email" required><br><br>
+        Password: <input type="password" name="pword_hash" required><br><br>
+        User Role: 
+        <select name="usr_role" required>
+            <!-- User roles will be populated by the PHP script -->
+        </select><br><br>
+        <input type="submit" value="Submit" name="submit">
+    </form>
+
+    <script>
+        // Fetch and populate user roles from the server
+        window.addEventListener('load', function () {
+            fetch('get_user_roles.php').then(response => response.json()).then(data => {
+                const selectElement = document.querySelector('select[name="usr_role"]');
+                data.forEach(role => {
+                    const option = document.createElement('option');
+                    option.value = role;
+                    option.textContent = role;
+                    selectElement.appendChild(option);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
