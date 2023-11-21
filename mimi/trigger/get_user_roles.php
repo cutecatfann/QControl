@@ -1,12 +1,5 @@
 <?php
-/************
-//
-//  CS 460 Fall 2023
-//  Script to fetch user roles for the form
-//
-*************/
-
-require_once '/home/SOU/pieperm/dbconfig.php'; // Adjust the path to your config file
+require_once '/home/SOU/pieperm/dbconfig.php'; 
 
 $dbconnect = mysqli_connect($hostname, $username, $password, $schema);
 

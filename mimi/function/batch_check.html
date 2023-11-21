@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Batch Quality Check</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+</head>
+<header>
+    <img src="QControl.png" alt="QControl Logo"> 
+    <h1>QControl Database System</h1>
+</header>
+<body>
+    <p><strong>Enter the Batch ID to get the average check value:</strong></p>
+    <form action="fetch_batch_quality.php" method="POST">
+        Batch ID: <input type="number" name="batch_id" required><br><br>
+        <input type="submit" value="Submit" name="submit">
+    </form>
+</body>
+</html>

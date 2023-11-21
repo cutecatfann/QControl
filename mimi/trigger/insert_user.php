@@ -1,10 +1,4 @@
 <?php
-/************
-//
-//  CS 460 Fall 2023
-//  Example of inserting data passed via a post request
-//
-*************/
 
 require_once '/home/SOU/pieperm/dbconfig.php'; 
 
@@ -16,7 +10,16 @@ $dbconnect = mysqli_connect($hostname, $username, $password, $schema);
 if ($dbconnect->connect_error) {
     die("Database connection failed: " . $dbconnect->connect_error);
 }
-echo "Connected successfully... </br>";
+?>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View Users</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+<?php
+echo "Connected successfully  <br>  <br>";
 
 if (isset($_POST['submit'])) {
     $usr_name = mysqli_real_escape_string($dbconnect, $_POST['usr_name']);

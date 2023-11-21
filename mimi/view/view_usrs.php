@@ -1,21 +1,11 @@
 <?php
-/************
-//
-//  CS 460 Fall 2023
-//  Accessing a result set from the 'v_UserRole' view
-//
-*************/
-
 require_once '/home/SOU/pieperm/dbconfig.php'; 
 
-// Turn error reporting on
 error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
 ini_set('display_errors', '1');
 
-// Create connection using procedural interface
 $mysqli = mysqli_connect($hostname, $username, $password, $schema);
 
-// Check connection (and exit if it fails)
 if (mysqli_connect_errno()) {
     printf("Connection failed: " . mysqli_connect_error());
     exit();
@@ -27,6 +17,10 @@ if (mysqli_connect_errno()) {
     <title>View Users</title>
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
+<header>
+    <img src="QControl.png" alt="QControl Logo"> 
+    <h1>QControl Database System</h1>
+</header>
 <body>
 <?php
 echo "Connected successfully  <br>  <br>";

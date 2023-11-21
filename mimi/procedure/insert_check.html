@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Record New Quality Check</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<header>
+    <img src="QControl.png" alt="QControl Logo"> 
+    <h1>QControl Database System</h1>
+</header>
+<body>
+    <h1>Record a New Quality Check</h1>
+    <form action="record_quality_check.php" method="POST">
+        Batch ID: <input type="number" name="batch_id" required><br><br>
+        Check Type ID: <input type="number" name="check_type_id" required><br><br>
+        Check Value: <input type="text" name="check_value" required><br><br>
+        User ID: <input type="number" name="user_id" required><br><br>
+        Status: 
+        <select name="status" required>
+            <option value="in-process">In-Process</option>
+            <option value="accepted">Accepted</option>
+            <option value="rejected">Rejected</option>
+        </select><br><br>
+        <input type="submit" value="Submit" name="submit">
+    </form>
+</body>
+</html>
