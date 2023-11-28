@@ -9,7 +9,15 @@
     <h1>QControl Database System</h1>
 </header>
 <body>
+    <p><strong>Author: </strong> Mimi </p>
+    <p><strong>Type of SQL Object: </strong>Trigger</p>
+    <p><strong>Description: </strong> When new users are added to the database, this trigger verifies that their data has the correct formatting and length. It will check for Role selection (is it a valid role), proper email regex, and a status. If there is an incorrect value it will reject the entry.</p>
+    <p><strong>Justification: </strong> This will help reduce the amount of erroneous data that is added to the database.</p>
+    <p><strong>This code is hardened to SQL injections, try it out!</strong></p>
+    <p><strong>Future Work: </strong>Currently, the password is not being stored in a secure way. Since this is a test database where the user's personal information does not need to be heavility protected, this is OK. However, the security needs to be improved.</p>
     <p><strong>Please enter the following information for the new user:</strong></p>
+    <p><strong>Example: </strong>Enter yourself into this database with your name, email, a password, and whatever role you want to be! </p>
+    <p>To check this worked, feel free to go back to the View Users page and see if you are there.</p>
     <form action="insert_user.php" method="POST">
         User Name: <input type="text" name="usr_name" required><br><br>
         User Email: <input type="email" name="user_email" required><br><br>
