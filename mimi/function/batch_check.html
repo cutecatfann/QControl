@@ -20,9 +20,28 @@
     <p><strong>This code is hardened to SQL injections, try it out! Example: </strong> 2' or '1=1</p>
     <p><strong>Enter the Batch ID to get the average check value:</strong></p>
     <p><strong>Example:</strong> Enter in any Batch ID like 1, which will result in 5.</p>
-    <form action="fetch_batch_quality.php" method="POST">
+    <!-- <form action="fetch_batch_quality.php" method="POST">
         Batch ID: <input type="number" name="batch_id" required><br><br>
         <input type="submit" value="Submit" name="submit">
+    </form> -->
+    <form id="batchForm">
+        Batch ID: <input type="number" name="batch_id" required><br><br>
+        <input type="submit" value="Submit">
     </form>
+    <div id="result"></div>
+
+    <script>
+    document.getElementById('batchForm').onsubmit = function(event) {
+        event.preventDefault();
+        var formData = new FormData(this);
+
+        fetch('fetch_batch_quality.php', {
+            method: 'POST',
+            body: formData
+        }).then(response => response.text())
+        .then(data => document.getElementById('result').innerHTML = data);
+    };
+    </script>
+
 </body>
 </html>
