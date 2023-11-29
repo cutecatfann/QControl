@@ -84,11 +84,7 @@ create table chck (
 -- Insert statements to populate product_type table
 insert into product_type (pt_name, pt_desc) values ('Chocolate Chip', 'Chocolate Chip Cookies');
 insert into product_type (pt_name, pt_desc) values ('Cake', 'Cake with frosting');
-insert into product_type (pt_name, pt_desc) values ('Sugar Cookie', 'Sweet and crunchy sugar cookies');
-insert into product_type (pt_name, pt_desc) values ('Brownie', 'Chocolate brownie with nuts');
-insert into product_type (pt_name, pt_desc) values ('Lemon Tart', 'Tart with a lemon flavor');
-insert into product_type (pt_name, pt_desc) values ('Cupcake', 'Small cake with icing on top');
-insert into product_type (pt_name, pt_desc) values ('Bread', 'Whole wheat bread loaf');
+
 
 -- Insert statements to populate stage table
 insert into stage (stage_name, pt_id) values ('Mixing', (select pt_id from product_type where pt_name='Chocolate Chip'));
@@ -97,11 +93,7 @@ insert into stage (stage_name, pt_id) values ('Packaging', (select pt_id from pr
 insert into stage (stage_name, pt_id) values ('Mixing', (select pt_id from product_type where pt_name='Cake'));
 insert into stage (stage_name, pt_id) values ('Baking', (select pt_id from product_type where pt_name='Cake'));
 insert into stage (stage_name, pt_id) values ('Packaging', (select pt_id from product_type where pt_name='Cake'));
-insert into stage (stage_name, pt_id) values ('Mixing', 3);
-insert into stage (stage_name, pt_id) values ('Baking', 4);
-insert into stage (stage_name, pt_id) values ('Cooling', 5);
-insert into stage (stage_name, pt_id) values ('Frosting', 6);
-insert into stage (stage_name, pt_id) values ('Slicing', 7);
+
 
 -- Insert statements to populate check_type table with specific checks for each product and stage
 insert into check_type (ct_name, ct_desc, stage_id, percent_check, lower_bound, upper_bound)
@@ -155,11 +147,7 @@ insert into check_type (ct_name, ct_desc, stage_id, percent_check, lower_bound, 
 			(select stage_id from stage where stage_name='Packaging' and 
 			pt_id=(select pt_id from product_type where pt_name='Cake')),
             0.1, 0.4, 0.6);
-insert into check_type (ct_name, ct_desc, stage_id, percent_check, lower_bound, upper_bound) values ('Dough Consistency', 'Consistency of the mixed dough', 3, 0.15, 0.3, 0.6);
-insert into check_type (ct_name, ct_desc, stage_id, percent_check, lower_bound, upper_bound) values ('Bake Time', 'Time taken for baking', 4, 0.10, 20, 30);
-insert into check_type (ct_name, ct_desc, stage_id, percent_check, lower_bound, upper_bound) values ('Cooling Temperature', 'Temperature during cooling', 5, 0.12, 20, 25);
-insert into check_type (ct_name, ct_desc, stage_id, percent_check, lower_bound, upper_bound) values ('Frosting Thickness', 'Thickness of frosting layer', 6, 0.15, 0.5, 1.0);
-insert into check_type (ct_name, ct_desc, stage_id, percent_check, lower_bound, upper_bound) values ('Slice Uniformity', 'Uniformity in bread slices', 7, 0.10, 2, 3);
+
 
 -- Insert statements to populate batch table
 insert into batch (pt_id, stage_id, batch_status) values
@@ -192,11 +180,7 @@ insert into batch (pt_id, stage_id, batch_status) values
      (select stage_id from stage where stage_name='Packaging' and
      pt_id=(select pt_id from product_type where pt_name='Cake')),
      'accepted');
-insert into batch (pt_id, stage_id, batch_status) values (3, 3, 'in-process');
-insert into batch (pt_id, stage_id, batch_status) values (4, 4, 'rejected');
-insert into batch (pt_id, stage_id, batch_status) values (5, 5, 'accepted');
-insert into batch (pt_id, stage_id, batch_status) values (6, 6, 'in-process');
-insert into batch (pt_id, stage_id, batch_status) values (7, 7, 'accepted');
+
 
 -- Setting random variables to insert a random check record
 set @pt = (select pt_id from product_type order by RAND() limit 1);
