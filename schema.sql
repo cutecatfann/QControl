@@ -216,13 +216,3 @@ insert into usr (usr_name, usr_role, pword_hash, user_email) values ('Raj Patel'
 insert into usr (usr_name, usr_role, pword_hash, user_email) values ('Emily Zhang', 'q_tech', 'e0m1z2', 'emilyz@example.com');
 insert into usr (usr_name, usr_role, pword_hash, user_email) values ('Luis Garcia', 'q_manager', 'l3g4c5', 'luisg@example.com');
 
--- simple audit table for any changes to users including updates and insertions
-CREATE TABLE usr_audit (
-    audit_id INT PRIMARY KEY AUTO_INCREMENT,
-    usr_name TEXT NOT NULL,
-    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    usr_role ENUM('q_manager', 'q_lead', 'q_tech') NOT NULL,
-    user_email TEXT NOT NULL,
-    action_performed_by TEXT NOT NULL,
-    action_type ENUM('INSERT', 'UPDATE') NOT NULL
-);
