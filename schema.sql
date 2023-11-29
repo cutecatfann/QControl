@@ -182,15 +182,6 @@ insert into batch (pt_id, stage_id, batch_status) values
      'accepted');
 
 
--- Setting random variables to insert a random check record
-set @pt = (select pt_id from product_type order by RAND() limit 1);
-set @stage = (select stage_id from stage where pt_id=@pt order by RAND() limit 1);
-set @ct = (select ct_id from check_type where stage_id=@stage order by RAND() limit 1);
-set @batch = (select batch_id from batch where pt_id=@pt order by RAND() limit 1);
-set @usr = (select usr_id from usr order by RAND() limit 1);
-insert into chck (ct_id, usr_id, batch_id, chck_value) values
-	(@ct, @usr, @batch, rand());
-
 -- Inserting user records
 insert into usr (usr_name, usr_role, pword_hash, user_email) values ('Chandler', 'q_tech', '11111', 'campbellr@sou.edu');
 insert into usr (usr_name, usr_role, pword_hash, user_email) values ('Mimi', 'q_manager', '22222', 'pieperm@sou.edu');
@@ -200,7 +191,18 @@ insert into usr (usr_name, usr_role, pword_hash, user_email) values ('Raj Patel'
 insert into usr (usr_name, usr_role, pword_hash, user_email) values ('Emily Zhang', 'q_tech', 'e0m1z2', 'emilyz@example.com');
 insert into usr (usr_name, usr_role, pword_hash, user_email) values ('Luis Garcia', 'q_manager', 'l3g4c5', 'luisg@example.com');
 
--- Simple audit table to keep track of all changes made to the usr table via triggers
+
+-- Setting random variables to insert a random check record
+set @pt = (select pt_id from product_type order by RAND() limit 1);
+set @stage = (select stage_id from stage where pt_id=@pt order by RAND() limit 1);
+set @ct = (select ct_id from check_type where stage_id=@stage order by RAND() limit 1);
+set @batch = (select batch_id from batch where pt_id=@pt order by RAND() limit 1);
+set @usr = (select usr_id from usr order by RAND() limit 1);
+insert into chck (ct_id, usr_id, batch_id, chck_value) values
+	(@ct, @usr, @batch, rand());
+
+    
+    -- Simple audit table to keep track of all changes made to the usr table via triggers
 CREATE TABLE usr_audit (
     audit_id INT PRIMARY KEY AUTO_INCREMENT,
     usr_name TEXT NOT NULL,
