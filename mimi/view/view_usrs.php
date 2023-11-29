@@ -37,7 +37,11 @@ if (mysqli_connect_errno()) {
     
     Managers will use this in order to see what users have access to the database, their access level, and if they are active.</p>
     <p><strong>This code is hardened to SQL injections, there is no user input. Example: </strong></p>
-    <p><strong>Expected Values: </strong> This should return all current users in the system in a list.</p>
+    <p><strong>Expected Values: </strong> This should return all current users in the system in a table. You will see: </p>
+    <p>User ID : 2</p>
+    <p>Name : Mimi</p>
+    <p>Role : q_manager</p>
+    <p>Status : Active</p>
 </body>
 <?php
 //echo "Connected successfully  <br>  <br>";
@@ -48,18 +52,37 @@ $sql = 'SELECT * FROM v_UserRole';
 // execute query using the connection created above
 $retval = mysqli_query($mysqli, $sql);  
 
-// if more than 0 rows were returned fetch each row and echo values of interest
+// // if more than 0 rows were returned fetch each row and echo values of interest
+// if (mysqli_num_rows($retval) > 0) {  
+//     while ($row = mysqli_fetch_assoc($retval)) {  
+//         echo "User ID : {$row['UserID']}  <br> " .  
+//              "Name : {$row['Name']} <br> " .  
+//              "Role : {$row['Role']} <br> " .  
+//              "Status : {$row['Status']} <br> " .  
+//              "--------------------------------<br>";  
+//     }
+// } else {  
+//     echo "No results found";  
+// }  
+
+// Start the table before the loop
+echo "<table>";
+echo "<tr><th>User ID</th><th>Name</th><th>Role</th><th>Status</th></tr>";
+
+// Modified loop to output data in table rows
 if (mysqli_num_rows($retval) > 0) {  
-    while ($row = mysqli_fetch_assoc($retval)) {  
-        echo "User ID : {$row['UserID']}  <br> " .  
-             "Name : {$row['Name']} <br> " .  
-             "Role : {$row['Role']} <br> " .  
-             "Status : {$row['Status']} <br> " .  
-             "--------------------------------<br>";  
+    while ($row = mysqli_fetch_assoc($retval)) {
+        echo "<tr>";
+        echo "<td>" . $row['UserID'] . "</td>";
+        echo "<td>" . $row['Name'] . "</td>";
+        echo "<td>" . $row['Role'] . "</td>";
+        echo "<td>" . $row['Status'] . "</td>";
+        echo "</tr>";  
     }
 } else {  
-    echo "No results found";  
+    echo "<tr><td colspan='4'>No results found</td></tr>";  
 }  
+echo "</table>";
 
 // free result set
 mysqli_free_result($retval);
