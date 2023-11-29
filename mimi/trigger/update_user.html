@@ -1,30 +1,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Add New User</title>
+    <title>Update User</title>
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <header>
     <img src="QControl.png" alt="QControl Logo"> 
-    <h1>QControl Database System</h1>
+    <h1>QControl Database System - Update User</h1>
 </header>
 <body>
-    <p><strong>Please enter the following information for the new user:</strong></p>
-    <p><strong>Example: </strong>Enter yourself into this database with your name, email, a password, and whatever role you want to be! </p>
-    <p>To check this worked, feel free to go back to the View Users page and see if you are there.</p>
-    <form action="insert_user.php" method="POST">
-        User Name: <input type="text" name="usr_name" required><br><br>
-        User Email: <input type="email" name="user_email" required><br><br>
-        Password: <input type="password" name="pword_hash" required><br><br>
-        User Role: 
-        <select name="usr_role" required>
+    <p><strong>Please enter the following information to update the user:</strong></p>
+    <form action="update_user.php" method="POST">
+        Original User Name: <input type="text" name="original_usr_name" required><br><br>
+        New User Name: <input type="text" name="usr_name"><br><br>
+        New User Email: <input type="email" name="user_email"><br><br>
+        New Password: <input type="password" name="pword_hash"><br><br>
+        New User Role: 
+        <select name="usr_role">
             <!-- user roles will be populated by the PHP script -->
         </select><br><br>
-        <input type="submit" value="Submit" name="submit">
+        <input type="submit" value="Update" name="submit">
     </form>
 
     <script>
-        // Fetch and populate user roles from the server
+        // fetch and populate user roles from the server
         window.addEventListener('load', function () {
             fetch('get_user_roles.php').then(response => response.json()).then(data => {
                 const selectElement = document.querySelector('select[name="usr_role"]');
