@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>QControl Database System</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+    <header>
+        <img src="QControl.png" alt="QControl Logo"> 
+        <h1>QControl Database System</h1>
+    </header>
+<body>
+
+    <p><strong>Author: </strong> Mimi </p>
+    <p><strong>Type of SQL Object: </strong>Trigger</p>
+    <p><strong>Description: </strong> There are three triggers that fire to keep track of all changes to users in the database. One fires on insertion, one on Updates, and one on Deletes. They all feed into an audit table that will keep track of the change, the time of change, who did the change. The below form will insert a user into the database, check it out! </p>
+    <p><strong>Justification: </strong> This will help keep track of changes to the user table, and in the real world, would be a security measure.</p>
+    <p><strong>This code is hardened to SQL injections, try it out!</strong></p>
+    <p><strong>Future Work: </strong>Currently, the password is not being stored in a secure way. Since this is a test database where the user's personal information does not need to be heavility protected, this is OK. However, the security needs to be improved.</p>
+
+    <div id="content">
+        <button onclick="window.location.href='add_user.html'">Add New User</button>
+        <button onclick="window.location.href='delete_user.html'">Delete User</button>
+        <button onclick="window.location.href='update_user.html'">Update User</button>
+    </div>
+    <footer>
+        <p>QControl Database System © 2023</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Product Type Quality Check Ratios</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<header>
+    <img src="QControl.png" alt="QControl Logo"> 
+    <h1>QControl Database System</h1>
+</header>
+<body>
+    <p><strong>Author: </strong> Mimi </p>
+    <p><strong>Type of SQL Object: </strong>Procedure</p>
+    <h1>Quality Check Ratios by Product Type</h1>
+    <p><strong>Description: </strong> For each product type, it allows users to the the ratio of passing and failing checks for all checks for that product type.</p>
+    <p><strong>Justification: </strong> This will allow users to see which products are consistently failing and which might need further improvements. This will be useful when a company has a lot of products and need to see which are most problematic.</p>
+    <p><strong>This code is hardened to SQL injections, there is no user input.</strong></p>
+    <p><strong>Expected Output: </strong>Shows the ratio for each product type. </p>
+    <p><strong>Below are the Pass/Fail Ratios for each Product Type:</strong></p>
+    <div id="results">
+    </div>
+
+    <script>
+        window.addEventListener('load', function () {
+            fetch('fetch_quality_check_ratios.php').then(response => response.text()).then(data => {
+                document.getElementById('results').innerHTML = data;
+            });
+        });
+    </script>
+</body>
+</html>
