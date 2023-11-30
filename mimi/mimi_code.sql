@@ -46,7 +46,7 @@ BEGIN
     -- Update the batch status
     UPDATE batch SET batch_status = input_status WHERE batch_id = input_batch_id;
 END
-
+/* this can break if batch 1 doesn't have a check type with id 1!
 CALL p_RecordQualityCheck(
     1,     
     1,      
@@ -54,7 +54,7 @@ CALL p_RecordQualityCheck(
     1,      
     'accepted' 
 );
-
+*/
 SELECT * FROM chck ORDER BY chck_id DESC LIMIT 1; 
 
 -- Function: For each product type: see the ratio of pass fail
@@ -101,13 +101,15 @@ END
 -- Description: When new users are added to the database, this trigger verifies that their data has the correct formatting and length. It will check for Role selection (is it a valid role), and proper email regex. If there is an incorrect value it will reject the entry.
 CREATE TRIGGER validate_new_user
 BEFORE INSERT ON usr
-FOR EACH ROW
+FOR EACH ROW -- is there a way to do this that doesn't validate each row? also it should run on update as well 
 BEGIN
+
+/* the enum takes care of this
     -- Check if role is valid
     IF NEW.usr_role NOT IN ('q_manager', 'q_lead', 'q_tech') THEN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Invalid role selected';
     END IF;
-
+*/ 
     -- Check email format (basic regex for email validation)
     IF NOT NEW.user_email REGEXP '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}$' THEN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Invalid email format';
