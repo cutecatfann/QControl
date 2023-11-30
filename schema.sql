@@ -1,5 +1,6 @@
 use f23_qualityControl;
 
+drop table if exists usr_audit;
 drop table if exists chck;
 drop table if exists usr;
 drop table if exists item;
@@ -180,6 +181,16 @@ insert into batch (pt_id, stage_id, batch_status) values
      (select stage_id from stage where stage_name='Packaging' and
      pt_id=(select pt_id from product_type where pt_name='Cake')),
      'accepted');
+
+CREATE TABLE usr_audit (
+    audit_id INT PRIMARY KEY AUTO_INCREMENT,
+    usr_name TEXT NOT NULL,
+    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    usr_role ENUM('q_manager', 'q_lead', 'q_tech') NOT NULL,
+    user_email TEXT NOT NULL,
+    action_performed_by TEXT NOT NULL,
+    action_type ENUM('INSERT', 'UPDATE', 'DELETE') NOT NULL
+);
 
 insert into usr (usr_name, usr_role, pword_hash, user_email) values ('Chandler', 'q_tech', '11111', 'campbellr@sou.edu');
 insert into usr (usr_name, usr_role, pword_hash, user_email) values ('Mimi', 'q_manager', '22222', 'pieperm@sou.edu');
