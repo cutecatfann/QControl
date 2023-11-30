@@ -9,7 +9,9 @@
     <h1>QControl Database System - Update User</h1>
 </header>
 <body>
-    <p><strong>Please enter the following information to update the user:</strong></p>
+    <p><strong>Please enter the following information to update the user. You need to enter the original name of the user, but all other fields are optional. </strong></p>
+    <p><strong>Example: </strong>If you have entered yourself into the database, change your name. Else, go to the view with all users and select one of the end users. </p>
+    <p>To check this worked, feel free to go back to the View Users page and see if your data is updated. The next page will show the latest log in the user audit table with your new data confirming that it worked.</p>
     <form action="update_user.php" method="POST">
         Original User Name: <input type="text" name="original_usr_name" required><br><br>
         New User Name: <input type="text" name="usr_name"><br><br>

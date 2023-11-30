@@ -179,6 +179,31 @@ th {
     color: white;
 }
 
-/* tr:nth-child(even) {
-    background-color: #f2f2f2;
-} */
+/* Additional Table Styling */
+table {
+    border-spacing: 0;
+    border: 1px solid #ddd;
+    width: 90%; 
+    margin: 0 auto; 
+}
+
+td, th {
+    text-align: center; 
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    height: 50px; 
+}
+
+td {
+    height: 40px; 
+}
+
+
+#result {
+    text-align: center; 
+    margin-top: 20px; 
+    font-size: 1.2em; 
+    color: #FFFFFF; 
+}
