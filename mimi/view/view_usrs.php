@@ -33,15 +33,49 @@ if (mysqli_connect_errno()) {
     <p><strong>Author: </strong> Mimi </p>
     <p><strong>Type of SQL Object: </strong>View</p>
     <p><strong>Description: </strong> View the user information in the system and shows only data important to managers, simplified. It will show UserID, Name, Role, Status for all users. </p>
-    <p><strong>Justification: </strong> This view will show which users have which roles, in order to see which users should be assigned to what tasks. This will also see which users in which roles have appropriate statuses. 
+    <p><strong>Justification: </strong> This view will show which users have which roles, in order to see which users should be assigned to what tasks. This will also see which users in which roles have which permissions level. 
     
-    Managers will use this in order to see what users have access to the database, their access level, and if they are active.</p>
+    Managers will use this in order to see what users have access to the database, their access level, and if they are active. They want a quick and effective way to see all their employees.</p>
     <p><strong>This code is hardened to SQL injections, there is no user input. Example: </strong></p>
     <p><strong>Expected Values: </strong> This should return all current users in the system in a table. You will see: </p>
     <p>User ID : 2</p>
     <p>Name : Mimi</p>
     <p>Role : q_manager</p>
     <p>Status : Active</p>
+    <p><strong>User Roles and Permissions</strong></p>
+    <table>
+        <tr>
+            <th>User Role</th>
+            <th>Create</th>
+            <th>Read</th>
+            <th>Update</th>
+            <th>Delete</th>
+        </tr>
+        <tr>
+            <td>Quality Manager</td>
+            <td>✔</td>
+            <td>✔</td>
+            <td>✔</td>
+            <td>✔</td>
+        </tr>
+        <tr>
+            <td>Quality Technician</td>
+            <td>✔</td>
+            <td>✔</td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Quality Lead</td>
+            <td>✔</td>
+            <td>✔</td>
+            <td>✔</td>
+            <td></td>
+        </tr>
+    </table>
+    <p>  </p>
+    <p>  </p>
+    <p><strong>All Users in the Database  </strong> </p>
 </body>
 <?php
 //echo "Connected successfully  <br>  <br>";

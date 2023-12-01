@@ -15,11 +15,12 @@
     <p><strong>Description: </strong> Calculates the average check value for a specific batch. This will show the quality level for a given batch. </p>
     <p><strong>Justification: </strong> Quickly assess the overall quality of a batch based on the checks performed on it.
     
-    Anyone who needs to see the quality of a given batch will use it. </p>
-    <p>For example, a quality manager might be curious to see if a given batch is greater than the desired value of 3. </p>
+    Anyone who needs to see the quality of a given batch will use it. Currently, it is open to all, but the primary target user are Quality Managers since they are ultimately the ones who are approving batches for continuation. </p>
+    <!-- <p>For example, a quality manager might be curious to see if a given batch is greater than the desired value of 3. </p> -->
     <p><strong>This code is hardened to SQL injections, try it out! Example: </strong> 2' or '1=1</p>
     <p><strong>Enter the Batch ID to get the average check value:</strong></p>
-    <p><strong>Example:</strong> Enter in any Batch ID like 1, which will result in 5.</p>
+    <p><strong>Example:</strong> Enter in any Batch ID like 2, which will result in 0.564037. Any non used Batch IDs (example: 8387), will result in a value of 0. </p>
+    <p><strong>Explanation of Values:</strong> This fuction returns the average check value across all checks for a given batch.</p>
     <!-- <form action="fetch_batch_quality.php" method="POST">
         Batch ID: <input type="number" name="batch_id" required><br><br>
         <input type="submit" value="Submit" name="submit">

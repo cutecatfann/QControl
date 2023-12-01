@@ -11,7 +11,8 @@
 <body>
     <p><strong>Please enter the user name to delete:</strong></p>
     <p><strong>Example: </strong>If you have entered yourself into the database, enter your name. Else, go to the view with all users and select one of the end users. </p>
-    <p>To check this worked, feel free to go back to the View Users page and see if you are not there. The next page will show the latest log in the user audit table with your data confirming that it worked.</p>
+    <p>The next page will show the latest log in the user audit table with your data confirming that it worked.</p>
+    <p><strong>Note: </strong>You cannot delete users that have an active status in the database. Please only delete inactive users.</p>
     <form action="delete_user.php" method="POST">
         User Name to Delete: <input type="text" name="usr_name_to_delete" required><br><br>
         <input type="submit" value="Delete" name="submit">

@@ -29,6 +29,21 @@ if ($dbconnect->connect_error) {
 <?php
 //echo "Connected successfully  <br>  <br>";
 
+function isValidInput($input) {
+    // blacklist of disallowed words
+    $blacklist = ['select', 'drop', 'insert', 'delete', 'fuck', 'shit', 'damn','cunt','bitch','update'];
+
+    $inputLower = strtolower($input);
+
+    // check if input contains any blacklisted word
+    foreach ($blacklist as $word) {
+        if (strpos($inputLower, $word) !== false) {
+            return false; // disallowed word found
+        }
+    }
+    return true; 
+}
+
 if (isset($_POST['submit'])) {
     // prepare and bind
     // use placeholders to prevent SQL injection
@@ -42,6 +57,10 @@ if (isset($_POST['submit'])) {
     $usr_role = $_POST['usr_role'];
     $pword_hash = $_POST['pword_hash'];
     $user_email = $_POST['user_email'];
+    
+    if (!isValidInput($usr_name) || !isValidInput($usr_role) || !isValidInput($pword_hash) || !isValidInput($user_email)) {
+        die("Invalid input detected. Please avoid using disallowed words.");
+    }
     
     if (!$stmt->execute()) {
             printf('An error occurred. Your data has not been submitted.  ');

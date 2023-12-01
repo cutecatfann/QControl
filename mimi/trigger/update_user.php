@@ -19,6 +19,21 @@ if ($dbconnect->connect_error) {
 </head>
 <body>
 <?php
+function isValidInput($input) {
+    // blacklist of disallowed words
+    $blacklist = ['select', 'drop', 'insert', 'delete', 'fuck', 'shit', 'damn','cunt','bitch','update'];
+
+    $inputLower = strtolower($input);
+
+    // check if input contains any blacklisted word
+    foreach ($blacklist as $word) {
+        if (strpos($inputLower, $word) !== false) {
+            return false; // disallowed word found
+        }
+    }
+    return true; 
+}
+
 if (isset($_POST['submit'])) {
     $original_usr_name = $_POST['original_usr_name'];
     $usr_name = $_POST['usr_name'];
@@ -26,6 +41,10 @@ if (isset($_POST['submit'])) {
     $pword_hash = $_POST['pword_hash'];
     $user_email = $_POST['user_email'];
 
+    if (!isValidInput($usr_name) || !isValidInput($usr_role) || !isValidInput($pword_hash) || !isValidInput($user_email)) {
+        die("Invalid input detected. Please avoid using disallowed words.");
+    }
+    
     $query = "UPDATE usr SET ";
     $queryParams = [];
     $paramTypes = '';
