@@ -1,6 +1,5 @@
 use f23_qualityControl;
 
-
 -- Ensure that there are no conflicting tables.
 drop table if exists usr_audit;
 drop table if exists chck;
@@ -10,10 +9,6 @@ drop table if exists batch;
 drop table if exists check_type;
 drop table if exists stage;
 drop table if exists product_type;
-
-
-
-
 
 -- user table with user details and roles
 CREATE TABLE usr (
@@ -142,8 +137,7 @@ insert into check_type (ct_name, ct_desc, stage_id, percent_check, lower_bound, 
 			pt_id=(select pt_id from product_type where pt_name='Chocolate Chip')),
             0.1, 0.5, 0.7);
             
-            
-            
+                   
 -- Insert statements to populate check_type table with specific checks for each product and stage
 insert into check_type (ct_name, ct_desc, stage_id, percent_check, lower_bound, upper_bound)
 	values ('Weight Before Baking', 'Mass of batter after mixing and before baking', 
@@ -207,11 +201,11 @@ insert into batch (pt_id, stage_id, batch_status) values
 -- Inserting user records
 insert into usr (usr_name, usr_role, pword_hash, user_email) values ('Chandler', 'q_tech', '11111', 'campbellr@sou.edu');
 insert into usr (usr_name, usr_role, pword_hash, user_email) values ('Mimi', 'q_manager', '22222', 'pieperm@sou.edu');
-insert into usr (usr_name, usr_role, pword_hash, user_email) values ('Alex Johnson', 'q_tech', 'a1b2c3', 'alexj@example.com');
-insert into usr (usr_name, usr_role, pword_hash, user_email) values ('Samantha Lee', 'q_manager', 's4m5n6', 'samanthal@example.com');
-insert into usr (usr_name, usr_role, pword_hash, user_email) values ('Raj Patel', 'q_lead', 'r7a8j9', 'rajpatel@example.com');
-insert into usr (usr_name, usr_role, pword_hash, user_email) values ('Emily Zhang', 'q_tech', 'e0m1z2', 'emilyz@example.com');
-insert into usr (usr_name, usr_role, pword_hash, user_email) values ('Luis Garcia', 'q_manager', 'l3g4c5', 'luisg@example.com');
+insert into usr (usr_name, usr_role, pword_hash, user_email) values ('Alex Johnson', 'q_tech', 'a1b2c3', 'alexj@gmail.com');
+insert into usr (usr_name, usr_role, pword_hash, user_email) values ('Samantha Lee', 'q_manager', 's4m5n6', 'samanthal@gmail.com');
+insert into usr (usr_name, usr_role, pword_hash, user_email) values ('Raj Patel', 'q_lead', 'r7a8j9', 'rajpatel@gmail.com');
+insert into usr (usr_name, usr_role, pword_hash, user_email) values ('Emily Zhang', 'q_tech', 'e0m1z2', 'emilyz@gmail.com');
+insert into usr (usr_name, usr_role, pword_hash, user_email) values ('Luis Garcia', 'q_manager', 'l3g4c5', 'luisg@gmail.com');
 
 -- Setting random variables to insert a random check record
 set @pt = (select pt_id from product_type order by RAND() limit 1);
@@ -221,9 +215,3 @@ set @batch = (select batch_id from batch where pt_id=@pt order by RAND() limit 1
 set @usr = (select usr_id from usr order by RAND() limit 1);
 insert into chck (ct_id, usr_id, batch_id, chck_value) values
 	(@ct, @usr, @batch, rand()*0.25+0.5);
-
-
-
-
-
-
