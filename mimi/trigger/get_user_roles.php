@@ -1,4 +1,10 @@
 <?php
+
+// Title: Get User Roles
+// Author: Mimi Pieper
+// Date: 01/12/2023
+// Description: This is the PHP frontend which connects to the MySQL backend. It gets a list of current user role types in the data base which are used to automatically populate drop down menus for the user roles so that if there are database changes they are automatically updated.
+
 // No user input, this code is not vulnerable to user injection attacks
 
 // load database configuration settings
