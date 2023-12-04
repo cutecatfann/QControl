@@ -1,3 +1,10 @@
+<!-- 
+Title: Insert Users PHP
+Author: Mimi Pieper
+Date: 01/12/2023
+Description: This is the PHP frontend which connects to the MySQL backend. It allows for insertions of new users, and is affected by the trigger after_usr_insert, which logs all the changes into the usr_log table for an audit trail.
+-->
+
 <?php
 // This code is not vulnerable to SQL injection attacks
 // It uses prepared statements to separate the SQL command from the data

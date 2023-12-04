@@ -1,3 +1,10 @@
+<!-- 
+Title: Delete Users PHP
+Author: Mimi Pieper
+Date: 01/12/2023
+Description: This is the PHP frontend which connects to the MySQL backend. It allows for deletion users, and is affected by the trigger after_usr_delete, which logs all the changes into the usr_log table for an audit trail.
+-->
+
 <?php
 require_once '/home/SOU/pieperm/dbconfig.php'; 
 
