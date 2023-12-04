@@ -4,8 +4,10 @@ require_once '/home/SOU/pieperm/dbconfig.php';
 error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
 ini_set('display_errors', '1');
 
+// connect to the database
 $dbconnect = mysqli_connect($hostname, $username, $password, $schema);
 
+// turn on errors
 if ($dbconnect->connect_error) {
     die("Database connection failed: " . $dbconnect->connect_error);
 }
@@ -21,23 +23,31 @@ if ($dbconnect->connect_error) {
 if (isset($_POST['submit'])) {
     $usr_name_to_delete = $_POST['usr_name_to_delete'];
 
-    // prepare and bind
-    $stmt = $dbconnect->prepare("DELETE FROM usr WHERE usr_name = ?");
-    $stmt->bind_param("s", $usr_name_to_delete);
+    // Check if user exists
+    $checkStmt = $dbconnect->prepare("SELECT * FROM usr WHERE usr_name = ?");
+    $checkStmt->bind_param("s", $usr_name_to_delete);
+    $checkStmt->execute();
+    $result = $checkStmt->get_result();
+    $userExists = $result->num_rows > 0;
+    $checkStmt->close();
 
-    if (!$stmt->execute()) {
+    if ($userExists) {
+        // user exists, proceed to delete
+        $stmt = $dbconnect->prepare("DELETE FROM usr WHERE usr_name = ?");
+        $stmt->bind_param("s", $usr_name_to_delete);
+
+        if (!$stmt->execute()) {
             printf('An error occurred. Your data has not been submitted.  ');
             die("Error: " . $dbconnect->error);
         } else {
             echo "User deleted successfully.<br> Below is the log of your most recent change. <br>";
 
-            // Query the latest_usr_audit_entry view
+            // query the latest_usr_audit_entry view
             $result = $dbconnect->query("SELECT * FROM latest_usr_audit_entry");
 
             if ($result->num_rows > 0) {
-                // Output data in a table
+                // output data in a table
                 echo "<table><tr><th>Audit ID</th><th>User Name</th><th>Timestamp</th><th>User Role</th><th>User Email</th><th>Action Performed By</th><th>Action Type</th></tr>";
-                // fetch associative array
                 while($row = $result->fetch_assoc()) {
                     echo "<tr><td>".$row["audit_id"]."</td><td>".$row["usr_name"]."</td><td>".$row["timestamp"]."</td><td>".$row["usr_role"]."</td><td>".$row["user_email"]."</td><td>".$row["action_performed_by"]."</td><td>".$row["action_type"]."</td></tr>";
                 }
@@ -46,8 +56,11 @@ if (isset($_POST['submit'])) {
                 echo "0 results";
             }
         }
-
-    $stmt->close();
+        $stmt->close();
+    } else {
+        // user does not exist
+        echo "Error: User not found in the database.";
+    }
 }
 
 mysqli_close($dbconnect);

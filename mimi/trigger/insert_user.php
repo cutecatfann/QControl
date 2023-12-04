@@ -31,7 +31,7 @@ if ($dbconnect->connect_error) {
 
 function isValidInput($input) {
     // blacklist of disallowed words
-    $blacklist = ['select', 'drop', 'insert', 'delete', 'fuck', 'shit', 'damn','cunt','bitch','update'];
+    $blacklist = ['select', 'drop', 'insert', 'delete', 'fuck', 'shit', 'damn','cunt','bitch','update','nigger','penis','pussy','cock','dick','fucker','motherfucker','tits'];
 
     $inputLower = strtolower($input);
 
