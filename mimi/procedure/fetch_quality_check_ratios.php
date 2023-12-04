@@ -1,3 +1,10 @@
+<!-- 
+Title: Fetch Status PHP
+Author: Mimi Pieper
+Date: 01/12/2023
+Description: This is the PHP which connects to the MySQL backend. It provides a JSON with all the statuses for the database
+-->
+
 <?php
 // No user input :)
 // As such, this code is not vulnerable to SQL injection attacks
