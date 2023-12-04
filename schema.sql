@@ -1,3 +1,14 @@
+/*
+This is the SQL file that defines the QControl database with tables, attributes, and data for each table.
+
+Each table has PKs, and many have FKs.
+
+This code was created by Chandler, Mimi, and Noah 
+
+Date: Fall 2023
+
+*/
+
 use f23_qualityControl;
 
 -- Ensure that there are no conflicting tables.
