@@ -1,3 +1,10 @@
+<!-- 
+Title: Fetch Batch Check PHP
+Author: Mimi Pieper
+Date: 01/12/2023
+Description: Connects to the MySQL backend and uses the function f_AverageCheckValue(?) to get the average check value for a batch ID provided. 
+-->
+
 <?php
 // This code is not vulnerable to basic SQL injection attacks.
 // It uses prepared statements with parameter bindings which means the user input is treated as a parameter and is data only
