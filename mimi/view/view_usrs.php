@@ -1,3 +1,11 @@
+<!-- 
+Title: View Users
+Author: Mimi Pieper
+Date: 01/12/2023
+Description: This file contains the PHP frontend connection to the View v_UserRole
+-->
+
+
 <?php
 // load database configuration settings
 require_once '/home/SOU/pieperm/dbconfig.php'; 
@@ -38,10 +46,7 @@ if (mysqli_connect_errno()) {
     Managers will use this in order to see what users have access to the database, their access level, and if they are active. They want a quick and effective way to see all their employees.</p>
     <p><strong>This code is hardened to SQL injections, there is no user input. Example: </strong></p>
     <p><strong>Expected Values: </strong> This should return all current users in the system in a table. As an example you will see: User ID : 2 | Name : Mimi | Role : q_manager | Status : Activ</p>
-    <!-- <p>User ID : 2</p>
-    <p>Name : Mimi</p>
-    <p>Role : q_manager</p>
-    <p>Status : Active</p> -->
+
     <p><strong>User Roles and Permissions</strong></p>
     <table>
         <tr>
