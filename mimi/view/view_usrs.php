@@ -37,11 +37,11 @@ if (mysqli_connect_errno()) {
     
     Managers will use this in order to see what users have access to the database, their access level, and if they are active. They want a quick and effective way to see all their employees.</p>
     <p><strong>This code is hardened to SQL injections, there is no user input. Example: </strong></p>
-    <p><strong>Expected Values: </strong> This should return all current users in the system in a table. You will see: </p>
-    <p>User ID : 2</p>
+    <p><strong>Expected Values: </strong> This should return all current users in the system in a table. As an example you will see: User ID : 2 | Name : Mimi | Role : q_manager | Status : Activ</p>
+    <!-- <p>User ID : 2</p>
     <p>Name : Mimi</p>
     <p>Role : q_manager</p>
-    <p>Status : Active</p>
+    <p>Status : Active</p> -->
     <p><strong>User Roles and Permissions</strong></p>
     <table>
         <tr>
@@ -78,7 +78,6 @@ if (mysqli_connect_errno()) {
     <p><strong>All Users in the Database  </strong> </p>
 </body>
 <?php
-//echo "Connected successfully  <br>  <br>";
 
 // build query string to fetch user role data
 $sql = 'SELECT * FROM v_UserRole';  
@@ -86,24 +85,11 @@ $sql = 'SELECT * FROM v_UserRole';
 // execute query using the connection created above
 $retval = mysqli_query($mysqli, $sql);  
 
-// // if more than 0 rows were returned fetch each row and echo values of interest
-// if (mysqli_num_rows($retval) > 0) {  
-//     while ($row = mysqli_fetch_assoc($retval)) {  
-//         echo "User ID : {$row['UserID']}  <br> " .  
-//              "Name : {$row['Name']} <br> " .  
-//              "Role : {$row['Role']} <br> " .  
-//              "Status : {$row['Status']} <br> " .  
-//              "--------------------------------<br>";  
-//     }
-// } else {  
-//     echo "No results found";  
-// }  
-
-// Start the table before the loop
+// start the table before the loop
 echo "<table>";
 echo "<tr><th>User ID</th><th>Name</th><th>Role</th><th>Status</th></tr>";
 
-// Modified loop to output data in table rows
+// modified loop to output data in table rows
 if (mysqli_num_rows($retval) > 0) {  
     while ($row = mysqli_fetch_assoc($retval)) {
         echo "<tr>";
@@ -118,9 +104,7 @@ if (mysqli_num_rows($retval) > 0) {
 }  
 echo "</table>";
 
-// free result set
 mysqli_free_result($retval);
 
-// close connection
 mysqli_close($mysqli); 
 ?>
