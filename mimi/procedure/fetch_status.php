@@ -5,8 +5,8 @@ Date: 01/12/2023
 Description: This is the PHP frontend which connects to the MySQL backend. It gets a list of current statuses in the data base which are used to automatically populate drop down menus for the user roles so that if there are database changes they are automatically updated.
 -->
 
-
 <?php
+// This code is not vulnerable to SQL injection since there is no user input
 // load database configuration settings
 require_once '/home/SOU/pieperm/dbconfig.php'; 
 

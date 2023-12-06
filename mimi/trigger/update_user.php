@@ -6,6 +6,9 @@ Description: This is the PHP frontend which connects to the MySQL backend. It al
 -->
 
 <?php
+// This code is not vulnerable to SQL injection attacks
+// It uses prepared statements to separate the SQL command from the data
+// The PHP variables are parameter bound to the SQL query, and ssss specifes that they are strings only
 require_once '/home/SOU/pieperm/dbconfig.php'; 
 
 error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);

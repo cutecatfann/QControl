@@ -6,6 +6,7 @@ Description: This is the PHP frontend which connects to the MySQL backend. It al
 -->
 
 <?php
+// It is not vulnerable to SQL injection since it uses bound statements, ?, and bound parameters
 require_once '/home/SOU/pieperm/dbconfig.php'; 
 
 error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
