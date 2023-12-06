@@ -7,7 +7,7 @@
 
 // load database configuration
 //require_once '../../dbconfig.php';
-require_once '/home/SOU/campbellr/dbconfig.php';
+require_once '/home/SOU/pieperm/dbconfig.php';
 
 // configure error reporting
 error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);

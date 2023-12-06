@@ -1,10 +1,9 @@
 <?php
 // load database configuration settings
-require_once '/home/SOU/campbellr/dbconfig.php';
+require_once '/home/SOU/pieperm/dbconfig.php';
 //require_once '../../dbconfig.php';
 
-// Since there is no user input being used to construct the SQL query, there is no direct opportunity for SQL injection.
-// As such, the code is hardened to basic SQL injection attacks.
+//code that takes no input can't be exploited with sql injection
 
 // Configure error reporting to display errors
 error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
@@ -26,14 +25,14 @@ if (mysqli_connect_errno()) {
 <html>
 <head>
     <title>Record New Quality Check</title>
-    <link rel="stylesheet" type="text/css" href="../../style.css">
+    <link rel="stylesheet" type="text/css" href="../../homepage/style.css">
 </head>
 <header>
     <img src="../../homepage/QControl.png" alt="QControl Logo">
     <h1>QControl Database System</h1>
 </header>
 <body>
-    <p><strong>Author: </strong> Chandler</p>
+    <p><strong>Author: </strong>Chandler</p>
     <p><strong>Type of SQL Object: </strong>Procedure</p>
     <p><strong>Description: </strong> This procedure allows a user to safely create a new batch in a coherent state, that is to say, with status in-process and in the first stage of production.</p>
     <p><strong>Justification: </strong> This will be used daily by Quality Leads to create records of the day's work. Doing it manually with an insert statement could allow batches to be created in inconsistent states. </p>

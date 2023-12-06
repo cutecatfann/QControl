@@ -1,4 +1,4 @@
-use f23_qualityControl;
+use usr_campbellr_0;
 
 drop trigger if exists t_InsertBatchReject;
 drop trigger if exists t_UpdateBatchReject;

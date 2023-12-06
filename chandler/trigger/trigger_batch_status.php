@@ -1,11 +1,9 @@
 <?php
 // load database configuration settings
-require_once '/home/SOU/campbellr/dbconfig.php';
+require_once '/home/SOU/pieperm/dbconfig.php';
 //require_once '../../dbconfig.php';
 
-// Since there is no user input being used to construct the SQL query, there is no direct opportunity for SQL injection.
-// As such, the code is hardened to basic SQL injection attacks.
-
+// no input, so no sql injection
 // Configure error reporting to display errors
 error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
 ini_set('display_errors', '1');
@@ -24,7 +22,7 @@ if (mysqli_connect_errno()) {
 <html>
 <head>
     <title>View Batch Aggregate Stats</title>
-    <link rel="stylesheet" type="text/css" href="../../style.css">
+    <link rel="stylesheet" type="text/css" href="../../homepage/style.css">
 </head>
 <header>
     <img src="QControl.png" alt="QControl Logo"> 
