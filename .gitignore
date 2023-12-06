@@ -1,4 +1,8 @@
 dbconfig.php
 *.swo
 *.swp
+<<<<<<< Updated upstream
 .idea
+=======
+.idea/
+>>>>>>> Stashed changes
