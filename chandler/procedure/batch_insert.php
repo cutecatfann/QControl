@@ -6,7 +6,8 @@
 // There is error handling for the database connetion and it closes the database connetion after use
 
 // load database configuration
-require_once '/home/SOU/pieperm/dbconfig.php'; 
+//require_once '../../dbconfig.php';
+require_once '/home/SOU/campbellr/dbconfig.php';
 
 // configure error reporting
 error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
@@ -21,22 +22,18 @@ if ($dbconnect->connect_error) {
 
 if (isset($_POST['submit'])) {
     // get data from the POST request
-    $batch_id = $_POST['batch_id'];
-    $check_type_id = $_POST['check_type_id'];
-    $check_value = $_POST['check_value'];
-    $user_id = $_POST['user_id'];
-    $status = $_POST['status'];
+    $pt_name = $_POST['pt_name'];
 
     // prepared statement to protect against SQL injection
-    $stmt = $dbconnect->prepare("CALL p_RecordQualityCheck(?, ?, ?, ?, ?)");
+    $stmt = $dbconnect->prepare("CALL p_CreateBatch(?)");
 
     // bind parameters to the prepared statements
-    $stmt->bind_param("iisss", $batch_id, $check_type_id, $check_value, $user_id, $status);
+    $stmt->bind_param("s", $pt_name, );
     $stmt->execute();
 
     // check if it affected any rows to see if there was success
     if ($stmt->affected_rows > 0) {
-        echo "New quality check record added successfully.";
+        echo "New batch record added successfully.";
     } else {
         echo "Failed to add the record: " . $dbconnect->error;
     }

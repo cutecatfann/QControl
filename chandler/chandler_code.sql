@@ -1,5 +1,16 @@
 use f23_qualityControl;
+
+drop trigger if exists t_InsertBatchReject;
+drop trigger if exists t_UpdateBatchReject;
+drop trigger if exists t_DeleteBatchReject;
+drop procedure if exists p_UpdateBatchStatus;
 drop function if exists f_CheckPassFail;
+
+
+
+
+-- Function
+-- This returns whether or not a check passed 
 create function f_CheckPassFail(i_chck_id int)
 returns bool deterministic
 return 
@@ -15,6 +26,7 @@ create view v_BatchChcks as
 select 
 	product_type.pt_name, 
 	batch.batch_id, 
+    batch.batch_status,
     check_type.ct_name, 
     check_type.lower_bound,
     check_type.upper_bound,
@@ -32,45 +44,75 @@ create view v_BatchQualityStatus as
 select
 	batch_id,
     pt_name,
-    avg(pass) as pass_ratio
+    count(chck_id) as check_count,
+    avg(pass) as pass_ratio, 
+    batch_status 
     from v_BatchChcks group by batch_id order by batch_id;
 
 -- Procedure
 delimiter //
 
 
--- function
+-- procedure
 -- creates a batch of the desired product type in a coherent state
 -- that is, in process, and in the earliest stage of production
 drop procedure if exists p_CreateBatch;
 CREATE PROCEDURE p_CreateBatch (
-	in i_pt_id int)
+	in i_pt_name text)
 proc_label:BEGIN
     -- Validate that the product type exists
-    IF i_pt_id not in (SELECT pt_id FROM product_type) THEN
+    IF i_pt_name not in (SELECT pt_name FROM product_type) THEN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Invalid product id';
         LEAVE proc_label;
     END IF;
 	insert into batch (pt_id, stage_id, batch_status) values
-					  (i_pt_id, 
+					  ((select pt_id from product_type where pt_name=i_pt_name), 
                       (select stage_id from stage where
-						pt_id=i_pt_id and prev_stage_id is null),
+						pt_id=(select pt_id from product_type where pt_name=i_pt_name) and prev_stage_id is null),
 					  'in-process');
 END//
 delimiter ;
--- call p_CreateBatch((select pt_id from product_type where pt_name="Cake"));
+-- call p_CreateBatch("Cake");
 -- Function: For each product type: see the ratio of pass fail
 
 
--- Tigger:  t_NewUserTest
-/*
-CREATE TRIGGER validate_new_user
-BEFORE INSERT ON usr
+
+-- this enables the following triggers 
+delimiter //
+create procedure p_UpdateBatchStatus ()
+begin
+	update batch set batch_status = 'rejected' 
+	where batch_status = 'in-process' and batch_id in 
+    (select batch_id from v_BatchQualityStatus where pass_ratio < 0.8);
+end //
+delimiter ;
+
+-- Trigger: changes a batch status to rejected if >20% of checks fail. 
+
+delimiter //
+CREATE TRIGGER t_InsertBatchReject
+AFTER INSERT ON chck
 FOR EACH ROW
 BEGIN
-    -- Check email format (basic regex for email validation)
-    IF NOT NEW.user_email REGEXP '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}$' THEN
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Invalid email format';
-    END IF;
-END
-*/
+	call p_UpdateBatchStatus();
+
+END //
+delimiter ;
+
+delimiter //
+CREATE TRIGGER t_UpdateBatchReject
+AFTER INSERT ON chck
+FOR EACH ROW
+BEGIN
+	call p_UpdateBatchStatus();
+END //
+delimiter ;
+
+delimiter //
+CREATE TRIGGER t_DeleteBatchReject
+AFTER INSERT ON chck
+FOR EACH ROW
+BEGIN
+	call p_UpdateBatchStatus();
+END //
+delimiter ;

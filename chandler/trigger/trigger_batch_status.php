@@ -1,6 +1,6 @@
 <?php
 // load database configuration settings
-require_once '/home/SOU/pieperm/dbconfig.php';
+require_once '/home/SOU/campbellr/dbconfig.php';
 //require_once '../../dbconfig.php';
 
 // Since there is no user input being used to construct the SQL query, there is no direct opportunity for SQL injection.
@@ -32,11 +32,11 @@ if (mysqli_connect_errno()) {
 </header>
 <body>
     <p><strong>Author: </strong> Chandler </p>
-    <p><strong>Type of SQL Object: </strong>View</p>
-    <p><strong>Description: </strong> This displays all the batches in the system, and aggregate stats about them.</p>
-    <p><strong>Justification: </strong> This would be useful to managers to view, to see how batches are doing.   </p>
+    <p><strong>Type of SQL Object: </strong>Trigger</p>
+    <p><strong>Description: </strong> This displays all the batches in the system, and aggregate stats about them, including whether or not they pass.</p>
+    <p><strong>Justification: </strong> This would be useful to managers to view the state of all current batches in the system.</p>
     <p><strong>This code is hardened to SQL injections, because here is no user input.</strong></p>
-    <p><strong>Expected Values: </strong> This will return a list of batches, the percent of checks on those batches which passed, the total number of checks, and the status of the batch.</p>
+    <p><strong>Expected Values: </strong> Observe that some batches are marked as rejected. These batches had their state set automatically using a trigger, when their checks were inserted.</p>
 </body>
 <?php
 //echo "Connected successfully  <br>  <br>";
@@ -62,7 +62,8 @@ if (mysqli_num_rows($retval)) {
              "<td>{$row['batch_status']} </td> " .
              "<td>{$row['pt_name']} </td> " .
              "<td>{$row['check_count']} </td> " .
-             "<td>{$row['pass_ratio']} </td> </tr>" ;
+             "<td>{$row['pass_ratio']} </td>" .
+             "<td>{$row['batch_status']}</td></tr>";
     }
     echo "</table>";
 } else {  

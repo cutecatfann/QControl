@@ -1,7 +1,7 @@
 <?php
 // load database configuration settings
-//require_once '/home/SOU/pieperm/dbconfig.php';
-require_once '../../dbconfig.php';
+require_once '/home/SOU/campbellr/dbconfig.php';
+//require_once '../../dbconfig.php';
 
 // Since there is no user input being used to construct the SQL query, there is no direct opportunity for SQL injection.
 // As such, the code is hardened to basic SQL injection attacks.
@@ -26,11 +26,11 @@ $rows = mysqli_query($mysqli,
 <html>
 <head>
     <title>Check Pass/Fail</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="../../style.css">
 
 </head>
 <header>
-    <img src="QControl.png" alt="QControl Logo"> 
+    <img src="../../homepage/QControl.png" alt="QControl Logo">
     <h1>QControl Database System</h1>
 </header>
 <body>
