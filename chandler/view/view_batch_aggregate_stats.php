@@ -1,6 +1,7 @@
 <?php
 // load database configuration settings
-require_once '/home/SOU/pieperm/dbconfig.php'; 
+//require_once '/home/SOU/pieperm/dbconfig.php';
+require_once '../../dbconfig.php';
 
 // Since there is no user input being used to construct the SQL query, there is no direct opportunity for SQL injection.
 // As such, the code is hardened to basic SQL injection attacks.
@@ -22,7 +23,7 @@ if (mysqli_connect_errno()) {
 <!DOCTYPE html>
 <html>
 <head>
-    <title>View Users</title>
+    <title>View Batch Aggregate Stats</title>
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <header>
@@ -30,33 +31,40 @@ if (mysqli_connect_errno()) {
     <h1>QControl Database System</h1>
 </header>
 <body>
-    <p><strong>Author: </strong> Mimi </p>
+    <p><strong>Author: </strong> Chandler </p>
     <p><strong>Type of SQL Object: </strong>View</p>
-    <p><strong>Description: </strong> View the user information in the system and shows only data important to managers, simplified. It will show UserID, Name, Role, Status for all users. </p>
-    <p><strong>Justification: </strong> This view will show which users have which roles, in order to see which users should be assigned to what tasks. This will also see which users in which roles have appropriate statuses. 
-    
-    Managers will use this in order to see what users have access to the database, their access level, and if they are active.</p>
-    <p><strong>This code is hardened to SQL injections, there is no user input. Example: </strong></p>
-    <p><strong>Expected Values: </strong> This should return all current users in the system in a list.</p>
+    <p><strong>Description: </strong> This displays all the batches in the system, and aggregate stats about them.</p>
+    <p><strong>Justification: </strong> This would be useful to managers to view  </p>
+    <p><strong>This code is hardened to SQL injections, because here is no user input.</strong></p>
+    <p><strong>Expected Values: </strong> This will return a list of batches, the percent of checks on those batches which passed, the total number of checks, and the status of the batch.</p>
 </body>
 <?php
 //echo "Connected successfully  <br>  <br>";
 
 // build query string to fetch user role data
-$sql = 'SELECT * FROM v_UserRole';  
+$sql = 'SELECT * FROM v_BatchQualityStatus';
 
 // execute query using the connection created above
 $retval = mysqli_query($mysqli, $sql);  
 
 // if more than 0 rows were returned fetch each row and echo values of interest
-if (mysqli_num_rows($retval) > 0) {  
+if (mysqli_num_rows($retval)) {
+    echo "<table>" . "<tr>" .
+        "<td> Batch ID</td>" .
+        "<td>Batch Status</td>" .
+        "<td>Product Type</td>" .
+        "<td>Check Count</td>" .
+        "<td>Pass Ratio</td>" .
+        "</tr>";
+
     while ($row = mysqli_fetch_assoc($retval)) {  
-        echo "User ID : {$row['UserID']}  <br> " .  
-             "Name : {$row['Name']} <br> " .  
-             "Role : {$row['Role']} <br> " .  
-             "Status : {$row['Status']} <br> " .  
-             "--------------------------------<br>";  
+        echo "<tr><td> {$row['batch_id']}  </td>> " .
+             "<td>{$row['batch_status']} </td> " .
+             "<td>{$row['pt_name']} </td> " .
+             "<td>{$row['check_count']} </td> " .
+             "<td>{$row['pass_ratio']} </td> </tr>" ;
     }
+    echo "</table>";
 } else {  
     echo "No results found";  
 }  
