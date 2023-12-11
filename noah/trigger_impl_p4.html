@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <!-- HTML page that calls trigger PHP code -->
+<head>
+</head>
+<body>
+        <p>Set the password hash of the user with id 1. The last modified date will then be displayed.</p>
+	<p>This theoretically could be done by setting the field to update to the current timestamp.</p>
+        <form action="trigger_impl_p4.php" method="POST">
+      Password Hash: <input type="text" name="pword_hash"><br><br>
+      <input type="submit" value="Submit" name="submit">
+        </form>
+</body>
+</html>

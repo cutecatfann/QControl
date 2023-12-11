@@ -1,6 +1,7 @@
-
+-- Noahs SQL DB object implementations
 
 -- View v_BatchItems
+-- View the serial number of all items side-by-side with that items stage of prodction
 create view v_ItemsStage as
 select
     serial_number,
@@ -9,6 +10,7 @@ select
 
 
 -- Procedure p_UpdateBatch
+-- Update the stage ID of a batch.
 create procedure p_UpdateBatch(in b int, in s int
 begin
 	declare past_stage int;
@@ -25,12 +27,14 @@ begin
 end
 
 -- Function f_TimeSinceBatchCreation
+-- Get the time since a batch was created.
 create function f_TimeSinceBatchCreation(in b int)
 begin
     select DATEDIFF(CURRENT_DATE(), creation_date) as DaysSinceCreated from batch where batch_id = b;
 end
 
 -- Trigger t_BatchUpdateLastModified
+-- Update the last-modified date of a batch on update. This can be done with a qualifier on the field on table creation.
 create trigger t_BatchUpdateLastModified
 	after update on chck
 	for each row
