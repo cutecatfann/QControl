@@ -2,7 +2,7 @@
 
 -- View v_BatchItems
 -- View the serial number of all items side-by-side with that items stage of prodction
-create view v_ItemsStage as
+create view v_BatchItems as
 select
     serial_number,
     (select stage_id from batch where batch.batch_id = item.batch_id) as production_stage

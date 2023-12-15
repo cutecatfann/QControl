@@ -1,7 +1,15 @@
-
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+	<p><b>BatchItems -- View</b></p>
+	<p><b>Author: </b>Noah Mogensen</p>
+	<p><b>Description: </b>View the serial number of all items side-by-side with that items current stage of production.</p>
+	<p><b>Justification: </b>Allows for a bulk analysis of individual items and their current production stages.</p>
+</body>
+</html>
 <?php
-/// Execute view logic via PHP.
-/// Unable to execute view via PHP. This simply calls the select statement that the view contained.
 include_once('../../proj_config1.php');
 
 // Turn error reporting on
@@ -18,7 +26,7 @@ if (mysqli_connect_errno()) {
 }
 echo "Connected successfully  <br>  <br>";
 
-    $sql = "select serial_number, (select stage_id from batch where item.batch_id = batch.batch_id) as item_stage from item";
+    $sql = "select * from v_BatchItems";
 // execute query using the connection created above
 $retval = mysqli_query($mysqli, $sql);  
 

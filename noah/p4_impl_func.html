@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html>
-  <!-- HTML view to call function logic from PHP -->
 <head>
 </head>
 <body>
-        <p>Enter the batch (numeric value) whose creation date you want to view: </p>
+	<p><b>TimeSinceBatchCreation -- Function</b></p>
+	<p><b>Author: </b>Noah Mogensen</p>
+	<p><b>Description: </b>Display the number of days since a batch was first created.</p>
+	<p><b>Justification: </b>Allows for the identification for old or inactive batches.</p>
+        <p>Enter the batch_id (numeric value) if the batch whose time since creation you would like to view: </p>
         <form action="p4_impl_func.php" method="POST">
       Batch ID: <input type="text" name="batch"><br><br>
       <input type="submit" value="Submit" name="submit">

@@ -10,9 +10,7 @@
 </tr>
 
 <?php
-   /// Call procedure via PHP and view data to check results.
-
-   require_once '../../proj_config1.php';
+require_once '../../proj_config1.php';
 
 error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
 ini_set('display_errors', '1');

@@ -9,9 +9,8 @@
 </tr>
 
 <?php
-   /// CALL PSEUDO-FUNCTION FROM PHP
-   /// I was unable to create the function from SQL connection. All it would do is return the result the query used here, so this is semantically equivalent.
-require_once '../../proj_config.php';
+// do use '../' in file path
+require_once '../../proj_config1.php';
 
 error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
 ini_set('display_errors', '1');
@@ -27,7 +26,7 @@ echo "Connected successfully  <br><br>";
 // if someone posts data
 if(isset($_POST['submit'])) {
   $batch=$_POST['batch'];
-  $query = "select DATEDIFF(CURRENT_DATE(), creation_date) as DaysSinceCreated from batch where batch_id = '$batch'";
+  $query = "select f_TimeSinceBatchCreation('$batch') as DaysSinceCreated";
   $retval = mysqli_query($mysqli, $query);
 
     // if one or more rows were returned

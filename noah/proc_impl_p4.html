@@ -3,8 +3,12 @@
 <head>
 </head>
 <body>
+	<p><b>UpdateBatch -- Procedure</b></p>
+	<p><b>Author: </b>Noah Mogensen</p>
+	<p><b>Description: </b>Updates the production stage of the batch with the provided batch_id to the stage indicated by the provided stage_id</p>
+	<p><b>Justification: </b>This allows for validation of the stage that the batch is being set to, to ensure that an incorrect stage of production is not set for a batch</p>
       <p>To update the production stage of a batch, enter the numeric ID of the batch you would like to modify, and the desired stage id (also numeric): </p>
-	<p>For example, stages 1 and 2 are both valid stages for batch 1.</p>
+	<p>Stages 1 and 2 are both valid stages for batch 1.</p>
       <form action="proc_impl_p4.php" method="POST">
       Batch ID: <input type="text" name="batch"><br><br>
       Stage: <input type="text" name="stage"><br><br>

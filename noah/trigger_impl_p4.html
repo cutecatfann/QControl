@@ -1,9 +1,13 @@
 <!DOCTYPE html>
 <html>
-  <!-- HTML page that calls trigger PHP code -->
 <head>
 </head>
 <body>
+	<p><b>BatchUpdateLastModified -- Trigger</b></p>
+	<p><b>Author: </b>Noah Mogensen</p>
+	<p><b>Description: </b>Sets the last modified field of a batch accordingly on update.</p>
+	<p><b>Justification: </b>Keeps the last_modified field up-to-date. NOTE: This can just defined on table creation. There is technically no need for a separate trigger.</p>
+
         <p>Set the password hash of the user with id 1. The last modified date will then be displayed.</p>
 	<p>This theoretically could be done by setting the field to update to the current timestamp.</p>
         <form action="trigger_impl_p4.php" method="POST">
